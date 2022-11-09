@@ -1,6 +1,3 @@
-NIKOS TZANAKAKIS
-2013030066
-
 Changes from assignment 4: 
 logger.c now bypasses fopen64 as well as fopen in order to correctly detect openssl file opening.
 it works by calling fopen. may not work for files >2gb
