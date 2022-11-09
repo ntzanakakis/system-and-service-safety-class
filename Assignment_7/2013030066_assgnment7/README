@@ -1,0 +1,11 @@
+NIKOS TZANAKAKIS
+2013030066
+
+Assignment 7
+the adblock works by blocking connection to known ad servers. this is done by taking in IP addresses (or domains that are resolved to IPs)
+and blocking packets from those connections. the script works by resolving the domain into IP(s) and then blocking that ip
+
+
+Question 1
+The adblock works correctly on blocking ads from the domains given
+Ads that persist are sometimes caused by the website serving ads themselves instead of relying on the ad servers

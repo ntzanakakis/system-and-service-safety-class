@@ -1,0 +1,47 @@
+rsa.h
+added definitions for functions added to rsa.c as mentioned below
+
+rsa.c
+sieve of eratosthenes: creates boolean array "prime" as big as the limit. true or false depends on if the number is prime or not. initialized as true for every number
+sets non-prime number values on "prime" array as false
+scans "prime" array for true values, saves amount of true values
+scans "prime" array once more to save prime numbers to a size_t "primes" array containing only prime numbers
+
+gcd: implements basic greater common denominator
+
+gcdExtended: implements extended euclidean algorithm
+
+mod_exponent: implements modular exponentiation. 
+arguments are the value (in our case, ascii value) and the keys (key_n is n, key_de is d or e depending on if we use private or public key)
+
+mod_inverse: implements modular inverse algorithm
+
+rsa_keygen: generates the keys needed for RSA
+from the primes array that was produced using sieve_of_eratosthenes, pick any 2 random primes
+follow the basic steps needed for keygen: multiply primes to get n, find fi_n using eulers totient function etc.
+after all steps are complete, open (for writing) files used to save private and public keys
+save keys and close files
+
+rsa_encrypt: encrpyts using generated keys
+add relevant path to filenames given by user
+open input and key files for reading, output file for writing
+read keys from key file and save to variables
+seek to the end of input file, save length and rewind back to the start
+save input to an array
+close input and key files
+convert input characters to ascii values
+encrypt ascii values using mod_exponent
+save encrypted values to output file as size_t
+close output file
+
+rsa_decrypt: decrpyts using generated keys
+add relevant path to filenames given by user
+open input and key files for reading, output file for writing
+read keys from key file and save to variables
+seek to the end of input file, save length and rewind back to the start
+save input to an array
+close input and key files
+read size_t value, decrypt using mod_exponent
+save as ascii values, convert ascii values to text
+save text to output file
+close all files

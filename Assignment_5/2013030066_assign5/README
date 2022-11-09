@@ -1,0 +1,28 @@
+NIKOS TZANAKAKIS
+2013030066
+
+Changes from assignment 4: 
+logger.c now bypasses fopen64 as well as fopen in order to correctly detect openssl file opening.
+it works by calling fopen. may not work for files >2gb
+
+test_aclog.c is no longer used. has been replaced by test_aclog2.c. test_aclog2 should only be used by the ransomware.
+it takes as arguments a file name and a folder name and creates that file in the given folder, in the parent directory of the script.
+
+Makefiles' make run now calls for the ransomware instead of test_aclog.c. make now compiles test_aclog2.c as well and clean deletes the test_aclog program
+
+ransomware.sh creates the folder to house the files, creates new files AND encrypts them according to the given amount by the user.
+it asks the user if the default folder should be used and, for a new folder, also asks for the name
+then it creates the folder if it doesn't exist and asks the user how many files to create and encrypt
+after that it creates a random 10 character long string consisting of numbers, lowercase and uppercase letters
+it calls test_aclog2 with the folder name and file name which creates the file
+then openssl is called on that file to encrypt it and then deletes the original
+
+acmonitor.c now creates arrays of "entries" size instead of fixed size. entries is the lines of the log file
+it now contains 2 more functions "print_encrypted_files" and "print_amount_files_created"
+print_amount_files_created saves all log entry fields required to arrays (structs would be more correct) 
+it also calculates the time difference between now and when the file was created. 
+if 20 or less minutes have passed, increment a counter of total file creations
+then print if threshold has been exceeded and how many files were created
+print_encrypted_files checks if a file has been created based on the log. 
+if the file created is not a .encrypt file, check the rest of the log for a file with the same name and .encrypt extension
+if found, print the file name. the benefit of this is the file can be encrypted at any time instead of right after creation (as our ransomware does)

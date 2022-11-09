@@ -1,0 +1,10 @@
+NIKOS TZANAKAKIS
+2013030066
+
+the code was written and executed under WSL (windows subsystem linux). as such, the files used for testing that had locked permissions-
+and can not be moved without giving them the permissions back. the log was created using 3 different accounts under linux and file permissions where managed-
+via windows. this means that test_aclog doesn't make the same log file as the one provided. for this reason, a backup is provided.
+the code has lots of room for improvement because it was rushed together. it assumes up to a certain amount of files (255) with up to a certain amount of filename characters (255)-
+among other things. 
+
+implementation description has been added as comments on the code.

@@ -1,0 +1,23 @@
+NIKOS TZANAKAKIS
+2013030066
+
+Assignment 6
+to run the monitor, first use "make" command, then execute with "sudo ./monitor -X xxx", 
+where X is argument (h for help message, i for interface capture or r for file reading) and xxx is option (interface name or file name)
+to exit, use ctrl+c
+the program captures packets and prints an update on how many packets have been captured once a second.
+packet information are saved in the "log.txt" file
+upon exit, the program prints total session stats
+
+question 9: Can you tell if an incoming TCP packet is a retransmission? If yes, how? If not, why?
+it should possible to find retransmissions through a combination of ack number, sequence number and timestamps. 
+i didn't have enough time to implement it
+
+question 10: Can you tell if an incoming UDP packet is a retransmission? If yes, how? If not, why?
+UDP by itself doesn't do retransmissions. it's up to the individual application to deal with retransmissions.
+therefore we cannot reliably tell which packets are retransmissions
+
+question 11: In your program (when possible), mark each retransmitted packet as “Retransmitted”
+not implemented.
+
+comments on code should suffice as an explanation of how code functions
