@@ -142,37 +142,22 @@ rsa_keygen(void)
 	int primes_amount=0;
 
 	primes = sieve_of_eratosthenes(RSA_SIEVE_LIMIT, &primes_amount); //generate sieve of eratosthenes
-	//printf("amount of primes: %d \n", primes_amount);
-//	for (int i=0; i<primes_amount; i++)
-//		printf("%ld, ", primes[i]);
 	srand(time(0));
 	p = primes[(rand()%(primes_amount + 1))]; //pick 2 random primes
 	q = primes[(rand()%(primes_amount + 1))]; //pick 2 random primes
-//	printf("p = %ld\n", p);
-//	printf("q = %ld\n", q);
 
 	n = p * q;
-//	printf("n = %ld\n", n);
 	fi_n = (p-1)*(q-1);
-//	printf("fi_n = %ld\n", fi_n);
 	do
 		e = primes[(rand()%(primes_amount + 1))]; 
 	while ((gcd(e, fi_n) != 1) && (e%fi_n == 0));
-//	printf("e = %ld\n", e);
 	d = mod_inverse(e, fi_n);
-//	printf("d = %ld\n", d);
 	
 	FILE *key_private, *key_public;
 	key_private = fopen("../files/hpy414_private.key", "w");
-//	printf("a");
 	key_public = fopen("../files/hpy414_public.key", "w");
-//	printf("b");
 	fprintf(key_private, "%ld %ld", n, e);
-//	printf("c");
 	fprintf(key_public, "%ld %ld", n, d);
-//	int tot = sizeof(n) + sizeof(d);
-//	printf("%d\n", tot);
-//	printf("d");
 	fclose(key_private);
 	fclose(key_public);
 
@@ -204,10 +189,8 @@ rsa_encrypt(char *input_file, char *output_file, char *key_file)
 	out = fopen(out_filepath, "w");
 	key = fopen (key_filepath, "r");
 	fscanf(key, "%lu %lu",&key_n, &key_de); //read keys from key file
-	//printf("%lu %lu keys\n", key_n, key_de);
 	fseek(in, 0L, SEEK_END); //go to the end of file. used to determine input file length 
 	long int length = ftell(in); 
-	//printf("len %ld\n", length);
 	rewind(in); //rewind to start of file after seeking to the end
 	char buffer[length]; //plaintext buffer
 	size_t conv_buffer[length], cipher[length]; //conv_buffer = char to ascii, cipher = final ciphertext
@@ -251,10 +234,8 @@ rsa_decrypt(char *input_file, char *output_file, char *key_file)
 	out = fopen(out_filepath, "w");
 	key = fopen (key_filepath, "r");
 	fscanf(key, "%lu %lu",&key_n, &key_de); //read keys from key files
-	//printf("%lu %lu keys\n", key_n, key_de);
 	fseek(in, 0L, SEEK_END); //go to the end of file. used to determine input file length 
 	long int length = ftell(in);
-	//printf("len %ld\n", length);
 	rewind(in); //rewind to start of file
 	size_t buffer[length+1],conv_buffer[length+1]; //buffer contains ciphertext, conv_buffer contains decrypted ciphertext as ascii 
 	char plain[length+1]; //contains plaintext 
@@ -263,16 +244,11 @@ rsa_decrypt(char *input_file, char *output_file, char *key_file)
 		conv_buffer[i] = mod_exponent(buffer[i], key_n, key_de); //convert to ascii
 		plain[i] = (char)conv_buffer[i]; // save ascii as char
 	}
-//	printf("%ld input bytes, %ld output bytes\n", sizeof(buffer), sizeof(plain));	
 	fputs(plain, out); //save plaintext to file
 	fclose(in);
 	fclose(key);
 	fclose(out);
 	
-//	printf("%d\n", buffer[15]);
-//	printf("in file: %s\n", in_filepath);
-//	printf("out file: %s\n", out_filepath);
-//	printf("key file: %s\n", key_filepath);
 
 	/* TODO */
 
